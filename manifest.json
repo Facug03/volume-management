@@ -1,19 +1,28 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Volume Management",
-  "version": "1.0",
+  "version": "0.0.0",
   "description": "Control volume of all websites.",
+  "homepage_url": "https://github.com/Facug03/volume-management",
   "icons": {
-    "48": "icons/volume-48.png"
+    "48": "src/icons/volume-48.png"
   },
-  "action": {
+  "browser_action": {
+    "default_title": "Volume Management",
     "default_popup": "src/popup.html"
   },
+  "permissions": [
+    "storage",
+    "tabs",
+    "<all_urls>"
+],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["src/popup.js"],
-      "run_at": "document_start"
+      "js": ["src/volume.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "match_about_blank": true
     }
   ]
 }
