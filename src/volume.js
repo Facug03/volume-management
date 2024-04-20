@@ -1,4 +1,4 @@
-console.log('xd')
+console.log('test')
 
 initObserver()
 
@@ -39,7 +39,6 @@ function controlVolume(mediaElement) {
 }
 
 function searchAllVideosAndAudios() {
-  console.log({ document })
   const $soundElements = [...document.querySelectorAll('video, audio')]
 
   console.log($soundElements)
