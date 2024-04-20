@@ -41,7 +41,6 @@ function controlVolume(mediaElement) {
 function searchAllVideosAndAudios() {
   const $soundElements = [...document.querySelectorAll('video, audio')]
 
-  console.log($soundElements)
   if ($soundElements.length > 0) {
     $soundElements.forEach((element) => {
       controlVolume(element)
