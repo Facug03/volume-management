@@ -5,16 +5,16 @@ initObserver()
 function initObserver() {
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
-      // if (mutation.type === 'childList') {
-      mutation.addedNodes.forEach((node) => {
-        if (node.nodeType === Node.ELEMENT_NODE) {
-          if (node.tagName === 'AUDIO' || node.tagName === 'VIDEO') {
-            console.log(node.tagName)
-            controlVolume(node)
+      if (mutation.type === 'childList') {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            if (node.tagName === 'AUDIO' || node.tagName === 'VIDEO') {
+              console.log(node.tagName)
+              controlVolume(node)
+            }
           }
-        }
-      })
-      // }
+        })
+      }
     })
   })
 
