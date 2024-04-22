@@ -1,20 +1,36 @@
-console.log('test')
-
 initObserver()
 
+const audioContext = new AudioContext()
+
 function initObserver() {
+  console.log('test')
+
   const observer = new MutationObserver((mutations) => {
+    const uniqueParents = new Set()
+    const uniqueGrandParents = new Set()
+
     mutations.forEach((mutation) => {
       if (mutation.type === 'childList') {
         mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            if (node.tagName === 'AUDIO' || node.tagName === 'VIDEO') {
-              console.log(node.tagName)
-              controlVolume(node)
-            }
-          }
+          if (node.nodeType !== Node.ELEMENT_NODE) return
+
+          uniqueParents.add(node.parentNode)
         })
       }
+    })
+
+    if (uniqueParents.size === 0) return
+
+    uniqueParents.forEach((parent) => {
+      if (!parent || !parent.querySelectorAll) return
+
+      uniqueGrandParents.add(parent.parentNode)
+    })
+
+    uniqueGrandParents.forEach((parent) => {
+      if (!parent || !parent.querySelectorAll) return
+
+      searchAllVideosAndAudios(parent)
     })
   })
 
@@ -25,21 +41,15 @@ function initObserver() {
 }
 
 function controlVolume(mediaElement) {
-  const audioContext = new AudioContext()
-
   const mediaSource = audioContext.createMediaElementSource(mediaElement)
-
   const gainNode = audioContext.createGain()
-
   mediaSource.connect(gainNode)
-
   gainNode.connect(audioContext.destination)
-
   gainNode.gain.value = 0
 }
 
-function searchAllVideosAndAudios() {
-  const $soundElements = [...document.querySelectorAll('video, audio')]
+function searchAllVideosAndAudios(element) {
+  const $soundElements = [...element.querySelectorAll('video, audio')]
 
   if ($soundElements.length > 0) {
     $soundElements.forEach((element) => {
