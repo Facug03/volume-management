@@ -1,10 +1,25 @@
+console.log('test')
+
 initObserver()
 
+const hostname = location.hostname
+
+browser.runtime.onMessage.addListener((message) => {
+  if (message.action === 'changeVolume') {
+    browser.storage.local.set({ [hostname]: message.data })
+
+    getVideosAndAudios(document.documentElement)
+  }
+})
+
 const audioContext = new AudioContext()
+const gainNodesMap = new Map()
+
+window.addEventListener('popstate', function (event) {
+  console.log('probar')
+})
 
 function initObserver() {
-  console.log('test')
-
   const observer = new MutationObserver((mutations) => {
     const uniqueParents = new Set()
     const uniqueGrandParents = new Set()
@@ -30,7 +45,7 @@ function initObserver() {
     uniqueGrandParents.forEach((parent) => {
       if (!parent || !parent.querySelectorAll) return
 
-      searchAllVideosAndAudios(parent)
+      getVideosAndAudios(parent)
     })
   })
 
@@ -41,15 +56,26 @@ function initObserver() {
 }
 
 function controlVolume(mediaElement) {
-  const mediaSource = audioContext.createMediaElementSource(mediaElement)
-  const gainNode = audioContext.createGain()
-  mediaSource.connect(gainNode)
-  gainNode.connect(audioContext.destination)
-  gainNode.gain.value = 0
+  console.log(gainNodesMap)
+  browser.storage.local.get(hostname).then((res) => {
+    const volume = res[hostname]
+
+    let gainNode = gainNodesMap.get(mediaElement)
+
+    if (!gainNode) {
+      gainNode = audioContext.createGain()
+      const mediaSource = audioContext.createMediaElementSource(mediaElement)
+      mediaSource.connect(gainNode)
+      gainNode.connect(audioContext.destination)
+      gainNodesMap.set(mediaElement, gainNode)
+    }
+
+    gainNode.gain.value = volume
+  })
 }
 
-function searchAllVideosAndAudios(element) {
-  const $soundElements = [...element.querySelectorAll('video, audio')]
+function getVideosAndAudios(element) {
+  const $soundElements = element.querySelectorAll('video, audio')
 
   if ($soundElements.length > 0) {
     $soundElements.forEach((element) => {
