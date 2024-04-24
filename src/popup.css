@@ -31,23 +31,23 @@ h1 {
   outline: none;
   width: 100%;
   cursor: pointer;
+}
 
-  &::-moz-range-progress {
-    background-color: #484849;
-    height: 5px;
-  }
-  &::-moz-range-track {
-    background-color: #d3d3d3;
-    height: 5px;
-  }
-  &::-ms-fill-lower {
-    background-color: #484849;
-    height: 5px;
-  }
-  &::-ms-fill-upper {
-    background-color: #d3d3d3;
-    height: 5px;
-  }
+.slider::-moz-range-progress {
+  background-color: #484849;
+  height: 5px;
+}
+.slider::-moz-range-track {
+  background-color: #d3d3d3;
+  height: 5px;
+}
+.slider::-ms-fill-lower {
+  background-color: #484849;
+  height: 5px;
+}
+.slider::-ms-fill-upper {
+  background-color: #d3d3d3;
+  height: 5px;
 }
 
 .slider::-webkit-slider-thumb {

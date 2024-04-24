@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "test": ""
+    "test": "",
+    "lint": "web-ext lint",
+    "dev": "web-ext run",
+    "build": "web-ext build"
   },
   "type": "module",
   "author": "Facundo Gonzalez",
@@ -16,6 +19,7 @@
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-n": "16.6.2",
     "eslint-plugin-promise": "6.1.1",
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "web-ext": "^7.11.0"
   }
 }

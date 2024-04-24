@@ -28,5 +28,5 @@ module.exports = {
     'quotes': ['warn', 'single'],
     'semi': ['warn', 'never'],
   },
-  ignores: ['lib'],
+  ignores: ['web-ext-artifacts'],
 }
