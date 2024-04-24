@@ -1,5 +1,5 @@
 const hostname = location.hostname
-const audioContext = new AudioContext()
+let audioContext = new AudioContext()
 const gainNodesMap = new Map()
 let observer
 
@@ -33,6 +33,15 @@ browser.storage.local.get(hostname).then((res) => {
 
   getVideosAndAudios(document.documentElement)
   initObserver()
+})
+
+document.addEventListener('click', () => {
+  if (audioContext.state === 'suspended') {
+    audioContext.close()
+    gainNodesMap.clear()
+    audioContext = new AudioContext()
+    getVideosAndAudios(document.documentElement)
+  }
 })
 
 function initObserver() {
