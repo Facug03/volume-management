@@ -20,7 +20,6 @@ function controlVolume() {
           const storageFavicon = storage?.favicon
 
           if (storageFavicon?.length > 0) {
-            console.log('poner icon')
             $img.src = storageFavicon
           } else {
             $img.style = 'display: none;'
@@ -40,7 +39,6 @@ function controlVolume() {
 
   $volume.addEventListener('change', (e) => {
     const currentVolume = e.target.value / 100
-    console.log(currentVolume)
 
     browser.tabs
       .query({
