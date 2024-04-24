@@ -5,7 +5,7 @@
 	"description": "Control volume of all websites.",
 	"homepage_url": "https://github.com/Facug03/volume-management",
 	"icons": {
-		"48": "src/icons/volume-48.png"
+		"48": "public/icons/volume-48.png"
 	},
 	"browser_action": {
 		"default_title": "Volume Management",
