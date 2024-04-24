@@ -46,7 +46,6 @@ function controlVolume() {
         active: true,
       })
       .then((tabs) => {
-        console.log({ tabs })
         for (const tab of tabs) {
           browser.tabs
             .sendMessage(tab.id, {
