@@ -5,7 +5,12 @@ let observer
 
 browser.runtime.onMessage.addListener((message) => {
   if (message.action === 'changeVolume') {
-    const favicon = document.querySelector("link[rel~='icon']")?.href ?? ''
+    let favicon = document.querySelector("link[rel='icon']")?.href ?? ''
+
+    if (favicon.length === 0) {
+      favicon = document.querySelector("link[rel~='icon']")?.href ?? ''
+    }
+
     browser.storage.local.set({ [hostname]: { volume: message.data, favicon } })
 
     getVideosAndAudios(document.documentElement)
@@ -15,13 +20,16 @@ browser.runtime.onMessage.addListener((message) => {
 
 browser.storage.local.get(hostname).then((res) => {
   const storageVolume = res[hostname]?.volume
+  const storageFavicon =
+    res[hostname]?.favicon?.length > 0 ? res[hostname].favicon : ''
 
   if (!storageVolume) return
 
   if (storageVolume === 1) return
 
-  const favicon = document.querySelector("link[rel~='icon']")?.href ?? ''
-  browser.storage.local.set({ [hostname]: { volume: storageVolume, favicon } })
+  browser.storage.local.set({
+    [hostname]: { volume: storageVolume, favicon: storageFavicon },
+  })
 
   getVideosAndAudios(document.documentElement)
   initObserver()
@@ -33,7 +41,6 @@ function initObserver() {
   observer = new MutationObserver((mutations) => {
     const uniqueParents = new Set()
     const uniqueGrandParents = new Set()
-    console.log('mutation')
 
     mutations.forEach((mutation) => {
       if (mutation.type === 'childList') {
