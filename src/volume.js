@@ -1,28 +1,39 @@
-console.log('test')
-
-initObserver()
-
 const hostname = location.hostname
+const audioContext = new AudioContext()
+const gainNodesMap = new Map()
+let observer
 
 browser.runtime.onMessage.addListener((message) => {
   if (message.action === 'changeVolume') {
-    browser.storage.local.set({ [hostname]: message.data })
+    const favicon = document.querySelector("link[rel~='icon']")?.href ?? ''
+    browser.storage.local.set({ [hostname]: { volume: message.data, favicon } })
 
     getVideosAndAudios(document.documentElement)
+    initObserver()
   }
 })
 
-const audioContext = new AudioContext()
-const gainNodesMap = new Map()
+browser.storage.local.get(hostname).then((res) => {
+  const storageVolume = res[hostname]?.volume
 
-window.addEventListener('popstate', function (event) {
-  console.log('probar')
+  if (!storageVolume) return
+
+  if (storageVolume === 1) return
+
+  const favicon = document.querySelector("link[rel~='icon']")?.href ?? ''
+  browser.storage.local.set({ [hostname]: { volume: storageVolume, favicon } })
+
+  getVideosAndAudios(document.documentElement)
+  initObserver()
 })
 
 function initObserver() {
-  const observer = new MutationObserver((mutations) => {
+  if (observer) return
+
+  observer = new MutationObserver((mutations) => {
     const uniqueParents = new Set()
     const uniqueGrandParents = new Set()
+    console.log('mutation')
 
     mutations.forEach((mutation) => {
       if (mutation.type === 'childList') {
@@ -56,9 +67,8 @@ function initObserver() {
 }
 
 function controlVolume(mediaElement) {
-  console.log(gainNodesMap)
   browser.storage.local.get(hostname).then((res) => {
-    const volume = res[hostname]
+    const volume = res[hostname].volume
 
     let gainNode = gainNodesMap.get(mediaElement)
 
