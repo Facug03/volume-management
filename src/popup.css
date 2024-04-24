@@ -1,59 +1,72 @@
 :root {
-    font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 body {
-    max-width: 500px;
+  width: 300px;
+}
+
+main {
+  width: 100%;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    width: 100%; /* Full-width */
-    height: 5px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.8; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
-    cursor: pointer; /* Cursor on hover */
+  -webkit-appearance: none;
+  appearance: none;
+  height: 5px;
+  background: #d3d3d3;
+  outline: none;
+  width: 100%;
+  cursor: pointer;
 
-	&::-moz-range-progress {
-        background-color: #373739; 
-        height: 5px;
-    }
-    &::-moz-range-track {  
-        background-color: #d3d3d3;
-        height: 5px; 
-    }
-    &::-ms-fill-lower {
-        background-color: #373739; 
-        height: 5px; 
-    }
-    &::-ms-fill-upper {  
-        background-color: #d3d3d3;
-        height: 5px; 
-    }
+  &::-moz-range-progress {
+    background-color: #484849;
+    height: 5px;
   }
-  
-  /* Mouse-over effects */
-  .slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
+  &::-moz-range-track {
+    background-color: #d3d3d3;
+    height: 5px;
   }
-  
-  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
-    appearance: none;
-    width: 15px; /* Set a specific slider handle width */
-    height: 15px; /* Slider handle height */
-    border-radius: 50%;
-    background: #373739; /* Green background */
+  &::-ms-fill-lower {
+    background-color: #484849;
+    height: 5px;
   }
-  
-  .slider::-moz-range-thumb {
-    width: 15px; /* Set a specific slider handle width */
-    height: 15px; /* Slider handle height */
-    border-radius: 50%;
-    background: #373739; /* Green background */
+  &::-ms-fill-upper {
+    background-color: #d3d3d3;
+    height: 5px;
   }
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #484849;
+}
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #484849;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 600;
+}
