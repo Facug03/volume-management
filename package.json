@@ -6,13 +6,12 @@
     "test": "",
     "lint": "web-ext lint",
     "dev": "web-ext run",
-    "build": "web-ext build"
+    "build": "web-ext build --overwrite-dest"
   },
   "type": "module",
   "author": "Facundo Gonzalez",
   "license": "ISC",
   "devDependencies": {
-    "@rollup/plugin-terser": "0.4.4",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-config-standard": "17.1.0",
