@@ -85,7 +85,7 @@ function initObserver() {
 
 function controlVolume(mediaElement) {
   browser.storage.local.get(hostname).then((res) => {
-    const volume = res[hostname].volume
+    const volume = res[hostname]?.volume ?? 1
 
     let gainNode = gainNodesMap.get(mediaElement)
 
