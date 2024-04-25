@@ -25,7 +25,7 @@ function controlVolume() {
             $img.style = 'display: none;'
           }
 
-          if (storageVolume) {
+          if (storageVolume != null) {
             const stringVolume = (storageVolume * 100).toString()
             $volume.value = stringVolume
             $p.innerText = stringVolume
