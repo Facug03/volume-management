@@ -35,8 +35,6 @@ browser.storage.local.get(hostname).then((res) => {
 })
 
 document.addEventListener('click', () => {
-  // checkear si location.href cambió, si es asi reiniciar gainNodesMap
-
   if (audioContext.state === 'suspended') {
     audioContext.close()
     gainNodesMap.clear()
